@@ -121,7 +121,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #1a1a1a;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
   display: flex;
   flex-direction: column;
   z-index: 50;
@@ -130,48 +130,54 @@
 
 /* HEADER BAR */
 .map-header {
-  background: rgba(0, 0, 0, 0.85);
+  background: linear-gradient(90deg, #0f172a 0%, #1a1f35 100%);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid #b8860b;
   padding: 16px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: #e0e7ff;
   flex-shrink: 0;
+  box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
 }
 
 .header-left h1 {
   margin: 0;
   font-size: 24px;
   font-weight: 700;
-  color: #fff;
+  color: #b8860b;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 .header-left p {
   margin: 4px 0 0 0;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #94a3b8;
 }
 
 .header-close-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(0, 255, 136, 0.1);
+  border: 2px solid #b8860b;
+  color: #b8860b;
   width: 32px;
   height: 32px;
-  border-radius: 6px;
+  border-radius: 8px;
   font-size: 18px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
 .header-close-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #b8860b;
+  border-color: #b8860b;
+  color: #0f172a;
+  transform: rotate(90deg);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.6);
 }
 
 /* MAP LAYOUT - Main Content */
@@ -187,7 +193,7 @@
    over the sidebar */
 .map-container {
   flex: 1;
-  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  background: linear-gradient(135deg, #0f172a 0%, #1a1f35 100%);
   position: relative;
   z-index: 1;
   min-width: 0; /* allow flex child to shrink below content size */
@@ -196,76 +202,77 @@
 #tunisia-map {
   width: 100%;
   height: 100%;
-  background: #0a0a0a;
+  background: #1a2332;
 }
 
-/* ── TUNISIA SPOTLIGHT ──────────────────────────────────────────
-   Everything outside Tunisia's border is dimmed, desaturated and
-   blurred via backdrop-filter, so only Tunisia stays sharp and
-   "pops" — the rest of North Africa/the Mediterranean fades into
-   soft focus behind it. */
-.country-mask path {
-  backdrop-filter: blur(5px) saturate(0.35) brightness(0.5);
-  -webkit-backdrop-filter: blur(5px) saturate(0.35) brightness(0.5);
-  pointer-events: none;
+/* ── TUNISIA SHADOW & GLOW EFFECT ──────────────────────────────────────────
+   Deep shadow and glow for Tunisia visibility */
+.country-mask {
+  display: block;
 }
 
-/* Glowing gold outline traced exactly along Tunisia's real border */
-.tunisia-border-glow path {
-  filter: drop-shadow(0 0 3px #c9a84c) drop-shadow(0 0 10px rgba(201, 168, 76, 0.55));
-  pointer-events: none;
+/* Neon glow effect for Tunisia border */
+.tunisia-border-glow {
+  display: block;
 }
 
 /* SIDEBAR PANEL - Right side */
 .sidebar-panel {
   width: 360px;
-  background: rgba(15, 15, 15, 0.95);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, #0f172a 0%, #1a1f35 100%);
+  border-left: 3px solid #b8860b;
   display: flex;
   flex-direction: column;
-  color: white;
+  color: #e0e7ff;
   overflow: hidden;
+  box-shadow: -4px 0 25px rgba(0, 255, 136, 0.15);
 }
 
 .sidebar-header {
   padding: 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid #b8860b;
   flex-shrink: 0;
+  background: linear-gradient(90deg, #0f172a 0%, #1a1f35 100%);
 }
 
 .sidebar-header h2 {
   margin: 0 0 12px 0;
   font-size: 18px;
   font-weight: 600;
-  color: #fff;
+  color: #b8860b;
+  text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
 }
 
 .search-box {
   width: 100%;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 6px;
-  color: white;
+  background: rgba(0, 255, 136, 0.05);
+  border: 2px solid #b8860b;
+  border-radius: 8px;
+  color: #e0e7ff;
   font-size: 13px;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
 }
 
 .search-box::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: #64748b;
 }
 
 .search-box:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 255, 136, 0.08);
+  border-color: #b8860b;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
 }
 
 /* SIDEBAR LEGEND */
 .sidebar-legend {
   padding: 14px 16px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 2px solid #b8860b;
   flex-shrink: 0;
+  background: linear-gradient(90deg, rgba(0, 255, 136, 0.05) 0%, rgba(0, 255, 136, 0.02) 100%);
+  box-shadow: inset 0 2px 8px rgba(0, 255, 136, 0.1);
 }
 
 .legend-title-row {
@@ -278,26 +285,28 @@
 .legend-title {
   font-size: 12px;
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.6);
+  color: #b8860b;
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
 .legend-reset {
   background: none;
   border: none;
-  color: #c9a84c;
+  color: #3b82f6;
   font-size: 11px;
   font-weight: 600;
   cursor: pointer;
   padding: 2px 4px;
   opacity: 0.85;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
 }
 
 .legend-reset:hover {
   opacity: 1;
   text-decoration: underline;
+  color: #2563eb;
 }
 
 .legend-items {
@@ -314,36 +323,38 @@
   padding: 7px 10px 7px 8px;
   border-radius: 999px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   font-size: 12px;
   font-family: inherit;
-  background: color-mix(in srgb, var(--chip-color) 14%, rgba(255,255,255,0.04));
-  border: 1px solid color-mix(in srgb, var(--chip-color) 45%, rgba(255,255,255,0.12));
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 255, 136, 0.05);
+  border: 2px solid var(--chip-color);
+  color: #e0e7ff;
+  box-shadow: 0 0 8px color-mix(in srgb, var(--chip-color) 40%, transparent);
 }
 
 .legend-chip:hover {
-  transform: translateY(-1px);
-  background: color-mix(in srgb, var(--chip-color) 24%, rgba(255,255,255,0.06));
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--chip-color) 35%, transparent);
+  transform: translateY(-2px);
+  background: rgba(0, 255, 136, 0.12);
+  border-color: var(--chip-color);
+  box-shadow: 0 0 16px var(--chip-color);
 }
 
 .legend-chip.active {
-  background: color-mix(in srgb, var(--chip-color) 30%, rgba(255,255,255,0.06));
+  background: rgba(0, 255, 136, 0.15);
   border-color: var(--chip-color);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--chip-color) 50%, transparent);
+  box-shadow: 0 0 20px color-mix(in srgb, var(--chip-color) 60%, transparent);
 }
 
 /* Dimmed / inactive state when filtered out */
 .legend-chip.inactive {
   opacity: 0.4;
-  background: rgba(255, 255, 255, 0.03);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 255, 136, 0.02);
+  border-color: #1a1f35;
   box-shadow: none;
 }
 
 .legend-chip.inactive .legend-dot {
-  box-shadow: none;
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.3);
 }
 
 .legend-dot {
@@ -352,11 +363,11 @@
   border-radius: 50%;
   flex-shrink: 0;
   background: var(--chip-color);
-  box-shadow: 0 0 8px var(--chip-color);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--chip-color) 60%, transparent);
 }
 
 .legend-text {
-  color: #fff;
+  color: #1a1a2e;
   font-weight: 600;
   white-space: nowrap;
 }
@@ -364,7 +375,7 @@
 .legend-count {
   font-size: 10px;
   font-weight: 700;
-  color: #000;
+  color: #ffffff;
   background: var(--chip-color);
   border-radius: 999px;
   min-width: 18px;
@@ -373,11 +384,13 @@
   align-items: center;
   justify-content: center;
   padding: 0 5px;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
 }
 
 .sidebar-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
 }
 
 /* LOCATIONS LIST */
@@ -385,6 +398,7 @@
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  background: #0f172a;
 }
 
 .locations-list {
@@ -396,35 +410,41 @@
 
 .location-item {
   padding: 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 6px;
+  background: linear-gradient(90deg, rgba(0, 255, 136, 0.03) 0%, rgba(0, 255, 136, 0.01) 100%);
+  border: 2px solid #1a1f35;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .location-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 255, 136, 0.08);
+  border-color: #b8860b;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.25);
+  transform: translateX(4px);
 }
 
 .location-item.active {
-  background: rgba(201, 168, 76, 0.2);
-  border-color: rgba(201, 168, 76, 0.5);
-  color: #c9a84c;
+  background: rgba(0, 255, 136, 0.12);
+  border-color: #b8860b;
+  color: #b8860b;
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.3);
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.3);
 }
 
 .location-name {
   font-weight: 600;
-  color: white;
+  color: #e0e7ff;
   margin-bottom: 4px;
 }
 
 .location-category {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.5);
+  color: #94a3b8;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 /* ZOOM CONTROLS - Floating */
@@ -441,23 +461,26 @@
 .zoom-btn {
   width: 44px;
   height: 44px;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  border-radius: 10px;
+  background: rgba(0, 255, 136, 0.05);
+  border: 2px solid #b8860b;
+  color: #b8860b;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
 }
 
 .zoom-btn:hover {
-  background: rgba(0, 0, 0, 0.85);
-  border-color: rgba(255, 255, 255, 0.3);
-  color: #c9a84c;
+  background: #b8860b;
+  border-color: #b8860b;
+  color: #0f172a;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -469,16 +492,16 @@
     right: 20px;
     width: 340px;
     max-width: calc(100% - 40px);
-    background: rgba(18, 18, 20, 0.98);
+    background: linear-gradient(135deg, #0f172a 0%, #1a1f35 100%);
     backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 2px solid #b8860b;
     border-radius: 16px;
     overflow: hidden;
     z-index: 1000;
     box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(255, 255, 255, 0.02),
-      0 0 32px -8px color-mix(in srgb, var(--accent, #c9a84c) 55%, transparent);
+      0 24px 60px rgba(0, 255, 136, 0.25),
+      0 0 0 1px rgba(0, 255, 136, 0.2),
+      0 0 40px -8px rgba(0, 255, 136, 0.4);
     display: none;
     flex-direction: column;
     max-height: min(70vh, 560px);
@@ -501,9 +524,10 @@
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 3px;
-  background: var(--accent, #c9a84c);
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent, #b8860b) 0%, color-mix(in srgb, var(--accent, #b8860b) 70%, #0f172a) 100%);
   z-index: 5;
+  box-shadow: 0 0 15px var(--accent, #b8860b);
 }
 
 .info-header {
@@ -511,7 +535,7 @@
   overflow: hidden;
   height: 190px;
   flex-shrink: 0;
-  background: #0c0c0c;
+  background: linear-gradient(135deg, #1a2332 0%, #0f172a 100%);
 }
 
 .info-image-large {
@@ -519,6 +543,7 @@
   height: 100%;
   object-fit: cover;
   transition: transform 6s ease;
+  filter: brightness(0.8) saturate(1.1);
 }
 
 .info-panel.active .info-image-large {
@@ -529,7 +554,7 @@
 .info-image-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,0.05) 40%, rgba(12,12,14,0.95) 100%);
+  background: linear-gradient(180deg, rgba(0,255,136,0.1) 40%, rgba(26,35,50,0.95) 100%);
   z-index: 2;
 }
 
@@ -540,15 +565,15 @@
   z-index: 3;
   display: inline-flex;
   align-items: center;
-  padding: 5px 12px;
-  background: var(--accent, #c9a84c);
-  color: #101010;
+  padding: 6px 12px;
+  background: var(--accent, #b8860b);
+  color: #0f172a;
   font-size: 10px;
   font-weight: 800;
   border-radius: 999px;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 14px rgba(0, 255, 136, 0.5), 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 /* Floating circular close button, sits over the image top-right */
@@ -560,44 +585,48 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 255, 136, 0.1);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.85);
+  border: 2px solid #b8860b;
+  color: #b8860b;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
 }
 
 .info-close-btn:hover {
-  background: rgba(220, 50, 50, 0.85);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #ff0055;
+  border-color: #ff0055;
   color: white;
   transform: rotate(90deg);
+  box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
 }
 
 .info-body {
   padding: 16px 18px 18px;
   flex: 1;
   overflow-y: auto;
+  background: linear-gradient(180deg, #0f172a 0%, #1a1f35 100%);
 }
 
 .info-title {
   margin: 0 0 8px 0;
   font-size: 19px;
   font-weight: 700;
-  color: white;
+  color: #b8860b;
   line-height: 1.3;
   letter-spacing: -0.2px;
+  text-shadow: 0 0 8px rgba(0, 255, 136, 0.3);
 }
 
 .info-description {
   margin: 0 0 14px 0;
   font-size: 13px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.65);
+  color: #cbd5e1;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -609,45 +638,46 @@
   align-items: center;
   gap: 6px;
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.55);
+  color: #94a3b8;
   margin-bottom: 16px;
   padding: 6px 10px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 255, 136, 0.05);
+  border: 1px solid #b8860b;
   border-radius: 999px;
   font-family: 'SF Mono', 'Roboto Mono', monospace;
 }
 
 .info-coords svg {
-  color: var(--accent, #c9a84c);
+  color: var(--accent, #3b82f6);
   flex-shrink: 0;
 }
 
 .info-explore-btn {
   width: 100%;
   padding: 11px;
-  background: linear-gradient(135deg, var(--accent, #c9a84c), color-mix(in srgb, var(--accent, #c9a84c) 70%, black));
+  background: linear-gradient(135deg, var(--accent, #b8860b), color-mix(in srgb, var(--accent, #b8860b) 80%, #0f172a));
   border: none;
-  color: #101010;
+  color: #0f172a;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
 }
 
 .info-explore-btn:hover {
-  filter: brightness(1.08);
-  box-shadow: 0 8px 22px -4px color-mix(in srgb, var(--accent, #c9a84c) 60%, transparent);
-  transform: translateY(-1px);
+  filter: brightness(1.15);
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+  transform: translateY(-2px);
 }
 
 .info-explore-btn svg {
-  transition: transform 0.2s;
+  transition: transform 0.3s ease;
 }
 
 .info-explore-btn:hover svg {
@@ -668,23 +698,25 @@
   align-items: center;
   gap: 6px;
   padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 255, 136, 0.05);
+  border: 2px solid #b8860b;
+  color: #b8860b;
   font-size: 12px;
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   flex: 1;
   justify-content: center;
   white-space: nowrap;
+  box-shadow: 0 0 8px rgba(0, 255, 136, 0.2);
 }
 
 .info-nav-btn:hover {
-  background: color-mix(in srgb, var(--accent, #c9a84c) 22%, transparent);
-  border-color: color-mix(in srgb, var(--accent, #c9a84c) 55%, transparent);
-  color: var(--accent, #c9a84c);
+  background: rgba(0, 255, 136, 0.15);
+  border-color: #b8860b;
+  color: #b8860b;
+  box-shadow: 0 0 16px rgba(0, 255, 136, 0.4);
 }
 
 .info-nav-btn:active {
@@ -709,7 +741,7 @@
 .info-nav-counter {
   font-size: 11px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.45);
+  color: #64748b;
   font-family: 'SF Mono', 'Roboto Mono', monospace;
   flex-shrink: 0;
   min-width: 44px;
@@ -732,8 +764,18 @@
   width: 5px;
 }
 .info-body::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: #b8860b;
   border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 5px;
+}
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: #b8860b;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 /* ANIMATIONS */
@@ -842,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
   ];
   map.setMaxBounds(tunisiaBounds);
 
-  // Modern dark basemap — label-free version. We add place names back
+  // Modern dark basemap with high contrast — label-free version. We add place names back
   // in separately below, clipped strictly to Tunisia, so neighboring
   // countries never show any city/country names at all.
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
@@ -867,17 +909,17 @@ document.addEventListener('DOMContentLoaded', function() {
   L.polygon([worldRing, tunisiaLatLngs], {
     className: 'country-mask',
     stroke: false,
-    fillColor: '#05050a',
-    fillOpacity: 0.55,
+    fillColor: '#0a0e1a',
+    fillOpacity: 0.8,
     interactive: false,
   }).addTo(map);
 
-  // Glowing border traced exactly along Tunisia's coastline/frontier
+  // Neon glow border traced exactly along Tunisia's coastline/frontier
   L.polygon(tunisiaLatLngs, {
     className: 'tunisia-border-glow',
-    color: '#c9a84c',
-    weight: 2,
-    opacity: 0.9,
+    color: '#b8860b',
+    weight: 3,
+    opacity: 1,
     fill: false,
     interactive: false,
   }).addTo(map);
