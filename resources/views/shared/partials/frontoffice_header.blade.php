@@ -82,12 +82,9 @@
 
             </div>
         </nav>
-
-        <a href="{{ route('home') }}" class="header-logo" id="header-logo">
-            <img id="logo-img" src="{{ Vite::asset('resources/images/darkMode_logo.png') }}"
-                data-logo-scrolled="{{ Vite::asset('resources/images/darkMode_logo.png') }}"
-                alt="Ministère des Affaires Culturelles">
-        </a>
+<a href="{{ route('home') }}" class="header-logo" id="header-logo">
+    <img src="{{ Vite::asset('resources/assets/images/logo1.png') }}" alt="Ministère des Affaires Culturelles">
+</a>
         <!-- Custom Language Button -->
 
 
@@ -127,7 +124,7 @@
                         <div class="notification-loading">Chargement...</div>
                     </div>
                     <div class="notification-footer">
-                        <a href="{{ route('notifications.index') }}" class="view-all-link">Voir toutes les notifications</a>
+                        {{-- <a href="{{ route('notifications.index') }}" class="view-all-link">Voir toutes les notifications</a> --}}
                     </div>
                 </div>
             </div>
@@ -155,41 +152,45 @@
 
                 {{-- AFTER --}}
                 <div id="userDropdown" class="user-dropdown">
-    @auth
-        <div class="user-dropdown-header">
-            <div class="user-dropdown-avatar">
+                    @auth
+                        <div class="user-dropdown-header">
+                            <div class="user-dropdown-avatar">
+                                <span class="online-dot"></span>
+                            </div>
+                            <div>
+                                <div class="user-dropdown-name">{{ Auth::user()->full_name }}</div>
+                                <div class="user-dropdown-role">
+                                    @if(Auth::user()->isAdmin())
+                                        Administrateur
+                                    @else
+                                        Membre
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
 
-                <span class="online-dot"></span>
-            </div>
-            <div>
-                <div class="user-dropdown-name"></div>
-                <div class="user-dropdown-role">Membre</div>
-            </div>
-        </div>
+                        <div class="user-dropdown-list">
+                            {{-- <a href="{{ route('profile.index') }}" class="user-dropdown-item">🗂️ Mon espace</a> --}}
+                            <div class="user-dropdown-divider"></div>
+                            <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                                @csrf
+                                <button type="submit" class="user-dropdown-item logout-btn">🚪 Se déconnecter</button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="user-dropdown-header">
+                            <div class="user-dropdown-avatar" style="background: var(--bg3); color: var(--text3);">👤</div>
+                            <div>
+                                <div class="user-dropdown-name" style="color: var(--text);">Non connecté</div>
+                                <div class="user-dropdown-role">Rejoignez-nous</div>
+                            </div>
+                        </div>
 
-        <div class="user-dropdown-list">
-            <a href="{{ route('profile.index') }}" class="user-dropdown-item">🗂️ Mon espace</a>
-            <div class="user-dropdown-divider"></div>
-            <form method="POST" action="" style="margin:0;">
-                @csrf
-                <button type="submit" class="user-dropdown-item logout-btn">🚪 Se déconnecter</button>
-            </form>
-        </div>
-
-    @else
-        <div class="user-dropdown-header">
-            <div class="user-dropdown-avatar" style="background: var(--bg3); color: var(--text3);">👤</div>
-            <div>
-                <div class="user-dropdown-name" style="color: var(--text);">Non connecté</div>
-                <div class="user-dropdown-role">Rejoignez-nous</div>
-            </div>
-        </div>
-
-        <div class="user-dropdown-list">
-            <a href="{{ route('login') }}" class="user-dropdown-item">🔑 Connexion</a>
-            <a href="{{ route('register') }}" class="user-dropdown-item">✍️ Créer un compte</a>
-        </div>
-    @endauth
+                        <div class="user-dropdown-list">
+                            <a href="{{ route('login') }}" class="user-dropdown-item">🔑 Connexion</a>
+                            <a href="{{ route('register') }}" class="user-dropdown-item">✍️ Créer un compte</a>
+                        </div>
+                    @endauth
 
     <div class="user-dropdown-footer">
         <a href="#">Paramètres du compte</a>

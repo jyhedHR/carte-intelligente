@@ -13,6 +13,9 @@ use App\Http\Controllers\Home\HomeController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
+// ── Guest only ────────────────────────────────────────────────
+
+// ── Guest only ────────────────────────────────────────────────
 
 //ahawa:
 // ══════════════════════════════════════════════════════════════
@@ -32,10 +35,9 @@ Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 've
     ->name('verification.verify');
 // ── Guest-only ────────────────────────────────────────────────
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [LoginController::class, 'showForm'])->name('login');
+    Route::get('/login',  [LoginController::class, 'showForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.submit');
-
-    Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
+    Route::get('/register',  [RegisterController::class, 'showForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);
 
     Route::get('/forgot-password', [ForgotPasswordController::class, 'showForm'])->name('password.request');
@@ -44,26 +46,14 @@ Route::middleware('guest')->group(function () {
     Route::get('/reset-password/{token}', [ResetPasswordController::class, 'showForm'])->name('password.reset');
     Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.store');
 
+
 });
+Route::post('/logout', [LoginController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
  Route::resource('admin/map-categories', App\Http\Controllers\Home\MapCategoryController::class)
     ->parameters(['map-categories' => 'mapCategory']);
 
 Route::resource('admin/map-locations', App\Http\Controllers\Home\MapLocationController::class)
     ->parameters(['map-locations' => 'mapLocation']);// end middleware auth+admin
 Route::get('/patrimoine/carte', [App\Http\Controllers\Home\MapPublicController::class, 'show'])->name('heritage-map');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
