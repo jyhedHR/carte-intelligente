@@ -50,6 +50,19 @@
                         <span>Explorer Plus</span>
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </button>
+
+                    <!-- PREV / NEXT NAVIGATION — move between locations without closing the panel -->
+                    <div class="info-nav-row">
+                        <button type="button" class="info-nav-btn" id="info-nav-prev" title="Lieu précédent" aria-label="Lieu précédent">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            <span>Précédent</span>
+                        </button>
+                        <span class="info-nav-counter" id="info-nav-counter">1 / 1</span>
+                        <button type="button" class="info-nav-btn" id="info-nav-next" title="Lieu suivant" aria-label="Lieu suivant">
+                            <span>Suivant</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -183,6 +196,24 @@
 #tunisia-map {
   width: 100%;
   height: 100%;
+  background: #0a0a0a;
+}
+
+/* ── TUNISIA SPOTLIGHT ──────────────────────────────────────────
+   Everything outside Tunisia's border is dimmed, desaturated and
+   blurred via backdrop-filter, so only Tunisia stays sharp and
+   "pops" — the rest of North Africa/the Mediterranean fades into
+   soft focus behind it. */
+.country-mask path {
+  backdrop-filter: blur(5px) saturate(0.35) brightness(0.5);
+  -webkit-backdrop-filter: blur(5px) saturate(0.35) brightness(0.5);
+  pointer-events: none;
+}
+
+/* Glowing gold outline traced exactly along Tunisia's real border */
+.tunisia-border-glow path {
+  filter: drop-shadow(0 0 3px #c9a84c) drop-shadow(0 0 10px rgba(201, 168, 76, 0.55));
+  pointer-events: none;
 }
 
 /* SIDEBAR PANEL - Right side */
@@ -623,6 +654,79 @@
   transform: translateX(3px);
 }
 
+/* PREV / NEXT NAVIGATION ROW — sits below the explore button */
+.info-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.info-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.info-nav-btn:hover {
+  background: color-mix(in srgb, var(--accent, #c9a84c) 22%, transparent);
+  border-color: color-mix(in srgb, var(--accent, #c9a84c) 55%, transparent);
+  color: var(--accent, #c9a84c);
+}
+
+.info-nav-btn:active {
+  transform: scale(0.96);
+}
+
+.info-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.info-nav-btn svg {
+  flex-shrink: 0;
+  transition: transform 0.15s;
+}
+
+.info-nav-btn:hover svg {
+  transform: scale(1.1);
+}
+
+.info-nav-counter {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'SF Mono', 'Roboto Mono', monospace;
+  flex-shrink: 0;
+  min-width: 44px;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .info-nav-btn span {
+    display: none;
+  }
+  .info-nav-btn {
+    flex: 0 0 auto;
+    width: 40px;
+    padding: 8px;
+  }
+}
+
 /* Slim custom scrollbar for the body when description is long */
 .info-body::-webkit-scrollbar {
   width: 5px;
@@ -722,20 +826,86 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('[Map] Locations:', window.mapLocations);
 
   // Initialize Leaflet map - Fixed to Tunisia
-  const map = L.map('tunisia-map').setView([33.8869, 9.5375], 7);
+  const map = L.map('tunisia-map', {
+    zoomControl: false,       // we use our own custom zoom buttons
+    minZoom: 6,
+    maxZoom: 18,
+    maxBoundsViscosity: 1.0,  // fully resist dragging past the bounds
+  }).setView([33.8869, 9.5375], 6.6);
 
-  // Tunisia bounds
+  // Give a little breathing room around Tunisia's real border so the
+  // blurred/dimmed neighboring area is visible — this is what makes
+  // Tunisia visually "pop" against its surroundings.
   const tunisiaBounds = [
-    [30.2, 8.0],   // Southwest
-    [37.5, 11.6]   // Northeast
+    [28.7, 5.8],   // Southwest
+    [38.6, 13.2]   // Northeast
   ];
   map.setMaxBounds(tunisiaBounds);
 
-  // Add tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors',
-    maxZoom: 18,
+  // Modern dark basemap — label-free version. We add place names back
+  // in separately below, clipped strictly to Tunisia, so neighboring
+  // countries never show any city/country names at all.
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap contributors © <a href="https://carto.com/attributions">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 19,
   }).addTo(map);
+
+  // ── TUNISIA SPOTLIGHT MASK ────────────────────────────────────
+  // Tunisia's real national border (simplified), used to cut a "hole"
+  // in the dimming mask, trace the glowing outline, and clip the
+  // labels layer below.
+  const tunisiaBorderCoords = [[9.48214,30.307556],[9.055603,32.102692],[8.439103,32.506285],[8.430473,32.748337],[7.612642,33.344115],[7.524482,34.097376],[8.140981,34.655146],[8.376368,35.479876],[8.217824,36.433177],[8.420964,36.946427],[9.509994,37.349994],[10.210002,37.230002],[10.18065,36.724038],[11.028867,37.092103],[11.100026,36.899996],[10.600005,36.41],[10.593287,35.947444],[10.939519,35.698984],[10.807847,34.833507],[10.149593,34.330773],[10.339659,33.785742],[10.856836,33.76874],[11.108501,33.293343],[11.488787,33.136996],[11.432253,32.368903],[10.94479,32.081815],[10.636901,31.761421],[9.950225,31.37607],[10.056575,30.961831],[9.970017,30.539325],[9.48214,30.307556]];
+  const tunisiaLatLngs = tunisiaBorderCoords.map(([lng, lat]) => [lat, lng]);
+
+  // A large rectangle covering the whole pannable world, with
+  // Tunisia's outline punched out as a hole — Leaflet renders holes
+  // with an evenodd fill-rule, so Tunisia itself is left untouched.
+  // fillColor is set explicitly here (Leaflet defaults to bright blue
+  // otherwise, and its inline style wins over a plain CSS "fill" rule).
+  const worldRing = [[-85, -180], [-85, 180], [85, 180], [85, -180]];
+  L.polygon([worldRing, tunisiaLatLngs], {
+    className: 'country-mask',
+    stroke: false,
+    fillColor: '#05050a',
+    fillOpacity: 0.55,
+    interactive: false,
+  }).addTo(map);
+
+  // Glowing border traced exactly along Tunisia's coastline/frontier
+  L.polygon(tunisiaLatLngs, {
+    className: 'tunisia-border-glow',
+    color: '#c9a84c',
+    weight: 2,
+    opacity: 0.9,
+    fill: false,
+    interactive: false,
+  }).addTo(map);
+
+  // ── TUNISIA-ONLY LABELS ────────────────────────────────────────
+  // A separate labels layer, sitting in its own pane clipped exactly
+  // to Tunisia's border. This is how city names like Tunis, Sousse,
+  // Kairouan stay visible while Algeria/Libya place names never
+  // render anywhere, even in the dimmed/blurred surrounding area.
+  map.createPane('tunisiaLabelsPane');
+  const labelsPane = map.getPane('tunisiaLabelsPane');
+  labelsPane.style.zIndex = 450; // above the mask (overlayPane, 400), below markers (600)
+  labelsPane.style.pointerEvents = 'none';
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd',
+    maxZoom: 19,
+    pane: 'tunisiaLabelsPane',
+  }).addTo(map);
+
+  function clipLabelsToTunisia() {
+    const points = tunisiaLatLngs.map(([lat, lng]) => map.latLngToLayerPoint([lat, lng]));
+    const clipPath = 'polygon(' + points.map(p => `${p.x}px ${p.y}px`).join(',') + ')';
+    labelsPane.style.clipPath = clipPath;
+    labelsPane.style.webkitClipPath = clipPath;
+  }
+  map.on('move zoom viewreset', clipLabelsToTunisia);
+  map.whenReady(clipLabelsToTunisia);
 
   // Zoom controls
   document.getElementById('zoom-in').addEventListener('click', () => map.zoomIn());
@@ -780,12 +950,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Clicking a star on the map now opens the same info panel as the sidebar,
     // and syncs the sidebar list highlight + scrolls it into view.
     marker.on('click', () => {
-      showInfoPanel(loc);
-      highlightLocation(index);
-      const activeItem = locationsList.children[index];
-      if (activeItem) {
-        activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
+      selectLocation(index, { pan: false });
     });
 
     markers[index] = marker;
@@ -800,10 +965,7 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
 
     listItem.addEventListener('click', () => {
-      map.setView(loc.coords, 12);
-      marker.openPopup();
-      showInfoPanel(loc);
-      highlightLocation(index);
+      selectLocation(index, { pan: true });
     });
 
     locationsList.appendChild(listItem);
@@ -818,6 +980,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const matchesCategory = activeCategories.has(loc.categorySlug);
       item.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
     });
+    if (infoPanel.classList.contains('active')) updateNavControls();
   });
 
   // ── LEGEND FILTERING ──────────────────────────────────────────
@@ -846,6 +1009,8 @@ document.addEventListener('DOMContentLoaded', function() {
       chip.classList.toggle('active', isActive);
       chip.classList.toggle('inactive', !isActive);
     });
+
+    if (infoPanel.classList.contains('active')) updateNavControls();
   }
 
   legendChips.forEach(chip => {
@@ -874,6 +1039,14 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Info panel functions
+  // Tracks which location (index into window.mapLocations) is currently
+  // shown in the info panel, so the Précédent/Suivant buttons know where
+  // to move from.
+  let currentLocationIndex = null;
+  const navPrevBtn = document.getElementById('info-nav-prev');
+  const navNextBtn = document.getElementById('info-nav-next');
+  const navCounter = document.getElementById('info-nav-counter');
+
   function showInfoPanel(location) {
     document.getElementById('info-title').textContent = location.name;
     document.getElementById('info-description').textContent = location.description;
@@ -890,6 +1063,91 @@ document.addEventListener('DOMContentLoaded', function() {
       item.classList.toggle('active', i === index);
     });
   }
+
+  // Indices of locations currently passing the category filter + search box,
+  // in the same order they appear in the sidebar list. Précédent/Suivant
+  // step through this list, so a user browsing a filtered/searched subset
+  // never jumps to a hidden location.
+  function getVisibleIndices() {
+    const term = searchInput.value.toLowerCase();
+    const indices = [];
+    window.mapLocations.forEach((loc, i) => {
+      const matchesSearch = loc.name.toLowerCase().includes(term);
+      const matchesCategory = activeCategories.has(loc.categorySlug);
+      if (matchesSearch && matchesCategory) indices.push(i);
+    });
+    return indices;
+  }
+
+  function updateNavControls() {
+    const visible = getVisibleIndices();
+    const pos = visible.indexOf(currentLocationIndex);
+    const total = visible.length;
+
+    if (navCounter) {
+      navCounter.textContent = total > 0 ? `${pos + 1} / ${total}` : '0 / 0';
+    }
+    // Only disable when there's nothing (or only one thing) to move to —
+    // otherwise buttons stay enabled and wrap around from either end.
+    const disable = total <= 1;
+    if (navPrevBtn) navPrevBtn.disabled = disable;
+    if (navNextBtn) navNextBtn.disabled = disable;
+  }
+
+  // Opens the info panel for a given location index, syncs the sidebar
+  // highlight + scroll, and optionally pans/zooms the map to it. Used by
+  // marker clicks, sidebar clicks, and the Précédent/Suivant buttons alike
+  // so all three stay perfectly in sync.
+  function selectLocation(index, { pan = false } = {}) {
+    const loc = window.mapLocations[index];
+    if (!loc) return;
+
+    currentLocationIndex = index;
+
+    if (pan) {
+      map.setView(loc.coords, 12);
+    }
+    const marker = markers[index];
+    if (marker) marker.openPopup();
+
+    showInfoPanel(loc);
+    highlightLocation(index);
+    updateNavControls();
+
+    const activeItem = locationsList.children[index];
+    if (activeItem) {
+      activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  // Steps to the previous/next location within the currently visible
+  // (filtered/searched) set, wrapping around at either end.
+  function navigateInfoPanel(direction) {
+    const visible = getVisibleIndices();
+    if (visible.length === 0) return;
+
+    let pos = visible.indexOf(currentLocationIndex);
+    if (pos === -1) {
+      // Current location got filtered out from under us — start from the
+      // beginning rather than doing nothing.
+      pos = direction > 0 ? -1 : 0;
+    }
+
+    const nextPos = (pos + direction + visible.length) % visible.length;
+    selectLocation(visible[nextPos], { pan: true });
+  }
+
+  if (navPrevBtn) navPrevBtn.addEventListener('click', () => navigateInfoPanel(-1));
+  if (navNextBtn) navNextBtn.addEventListener('click', () => navigateInfoPanel(1));
+
+  // Left/Right arrow keys also step through locations while the panel is open,
+  // as long as the user isn't typing in the search box.
+  document.addEventListener('keydown', (e) => {
+    if (!infoPanel.classList.contains('active')) return;
+    if (document.activeElement === searchInput) return;
+    if (e.key === 'ArrowRight') navigateInfoPanel(1);
+    if (e.key === 'ArrowLeft') navigateInfoPanel(-1);
+  });
 
   // Close info panel
   // Close info panel
