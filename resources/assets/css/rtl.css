@@ -1,0 +1,107 @@
+/* ═══════════════════════════════════════════════
+   RTL OVERRIDES  [dir="rtl"]
+═══════════════════════════════════════════════ */
+
+/* ─── MAP ─── */
+[dir="rtl"] .map-wrapper {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .legend-bar-title {
+  padding-right: 0;
+  padding-left: 32px;
+  border-right: none;
+  border-left: 1px solid rgba(201, 168, 76, 0.25);
+}
+
+/* RTL - Panel on the LEFT side */
+[dir="rtl"] .info-panel {
+  left: 0;
+  right: auto;
+  border-left: 2px solid rgba(201, 168, 76, 0.4);
+  border-right: none;
+  border-radius: 0 8px 8px 0;
+  transform: translateX(-100%);       /* hidden to the left */
+}
+
+[dir="rtl"] .info-panel.active {
+ transform: translateX(0) !important;
+}
+
+[dir="rtl"] .info-back-btn {
+  left: auto;
+  right: 20px;
+}
+
+[dir="rtl"] .location-item:hover {
+  transform: translateX(4px);
+}
+
+[dir="rtl"] .map-legend-bar {
+  border-left: none;
+  border-right: 2px solid rgba(201, 168, 76, 0.4);
+}
+
+/* ─── NAVIGATION / MEGA MENU ─── */
+[dir="rtl"] .dropdown-menu {
+  left: auto;
+  right: 0;
+  text-align: right;
+  min-width: 120px;
+}
+
+[dir="rtl"] .mega-menu {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .dropdown-column {
+  align-items: flex-end;
+}
+
+[dir="rtl"] .dropdown-column h4 {
+  text-align: right !important;
+  direction: rtl !important;
+  width: 100% !important;
+}
+
+[dir="rtl"] .dropdown-column a {
+  text-align: right !important;
+  direction: rtl !important;
+  padding-left: 0 !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+[dir="rtl"] .dropdown-column a:hover {
+  padding-right: 10px !important;
+  padding-left: 0 !important;
+}
+
+/* ─── SPONSORS ─── */
+[dir="rtl"] .sponsors-scroll-wrapper {
+  direction: ltr;
+  left: auto;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+[dir="rtl"] .sponsors-track {
+  direction: ltr;
+  flex-direction: row;
+  animation: sponsorsScroll 35s linear infinite;
+}
+
+[dir="rtl"] .sponsors-header {
+  text-align: right;
+}
+
+[dir="rtl"] .about-eyebrow {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+/* ─── LANGUAGE SWITCHER ─── */
+[dir="rtl"] .lang-dropdown button {
+  text-align: right;
+}

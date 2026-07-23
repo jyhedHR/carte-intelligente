@@ -1,0 +1,96 @@
+/* ═══════════════════════════════════════════════
+   HERO SECTION
+═══════════════════════════════════════════════ */
+.hero-map {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 60px 48px;
+  gap: 40px;
+  max-width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.hero-content {
+  position: relative;
+  width: 40%;
+  z-index: 10;
+  animation: slideInLeft 1s ease-out;
+}
+
+.hero-content h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 72px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff 0%, #e8c97a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 24px;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+}
+
+.hero-content p {
+  font-size: 17px;
+  color: #a8b5cc;
+  margin-bottom: 36px;
+  line-height: 1.7;
+  font-weight: 300;
+  max-width: 480px;
+}
+
+/* ─── ZOOM BUTTONS ─── */
+.zoom-controls {
+  display: flex;
+  gap: 14px;
+  margin-top: 40px;
+}
+
+.zoom-btn {
+  width: 52px;
+  height: 52px;
+  border: 2px solid rgba(201, 168, 76, 0.4);
+  background: linear-gradient(135deg, rgba(201,168,76,0.05), rgba(56,178,172,0.05));
+  color: #c9a84c;
+  font-size: 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.zoom-btn:hover {
+  border-color: #c9a84c;
+  color: #ffffff;
+  background: rgba(201, 168, 76, 0.15);
+  box-shadow: 0 0 20px rgba(201,168,76,0.3), inset 0 0 20px rgba(201,168,76,0.05);
+  transform: translateY(-2px);
+}
+
+.zoom-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 20px rgba(201, 168, 76, 0.3);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.15); opacity: 0.8; }
+}

@@ -1,0 +1,135 @@
+/* ══ VERTICAL SECTION SPY NAV ══ */
+
+.section-spy-nav {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+
+  /* collapsed state — only the dots strip shows */
+  width: 18px;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+/* expand on hover */
+.section-spy-nav:hover {
+  width: 200px;
+}
+
+.spy-nav-inner {
+  background: rgba(10, 8, 6, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  padding: 16px 0 16px 12px;
+  min-width: 200px; /* inner doesn't shrink — outer clip handles it */
+}
+
+/* light mode */
+html:not(.dark) .spy-nav-inner {
+  background: rgba(255, 255, 255, 0.88);
+  border-color: rgba(201, 168, 76, 0.25);
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.1);
+}
+
+.spy-nav-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding: 0 14px 10px 2px;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  margin-bottom: 10px;
+  white-space: nowrap;
+  /* hide when collapsed */
+  opacity: 0;
+  transition: opacity 0.2s ease 0s;
+}
+
+.section-spy-nav:hover .spy-nav-label {
+  opacity: 1;
+  transition: opacity 0.25s ease 0.15s; /* delay so it fades in after expand */
+}
+
+.spy-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spy-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 2px;
+  text-decoration: none;
+  border-radius: 6px 0 0 6px;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.spy-nav-link:hover {
+  background: rgba(201, 168, 76, 0.08);
+}
+
+/* The dot */
+.spy-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border2, rgba(255,255,255,0.2));
+  border: 1.5px solid rgba(201, 168, 76, 0.4);
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+
+/* The label text */
+.spy-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+  opacity: 0;
+  transition: opacity 0.2s ease 0s;
+  pointer-events: none;
+}
+
+.section-spy-nav:hover .spy-label {
+  opacity: 1;
+  transition: opacity 0.25s ease 0.18s;
+}
+
+/* Active state */
+.spy-nav-link.active .spy-dot {
+  background: var(--gold);
+  border-color: var(--gold);
+  box-shadow: 0 0 8px rgba(201, 168, 76, 0.5);
+  transform: scale(1.3);
+}
+
+.spy-nav-link.active .spy-label {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+/* light mode text */
+html:not(.dark) .spy-label {
+  color: var(--text2);
+}
+
+html:not(.dark) .spy-nav-link.active .spy-label {
+  color: var(--gold3);
+}
+
+/* hide on very small screens */
+@media (max-width: 768px) {
+  .section-spy-nav {
+    display: none;
+  }
+}

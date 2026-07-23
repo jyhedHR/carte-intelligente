@@ -1,0 +1,120 @@
+/* ═══════════════════════════════════════════════
+   ABOUT PILLARS — animated hover cards
+═══════════════════════════════════════════════ */
+.about-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.about-pillar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  cursor: pointer;
+  position: relative;
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    background 0.28s ease;
+}
+
+/* Golden glow ring */
+.about-pillar::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 15px;
+  background: transparent;
+  border: 1.5px solid transparent;
+  transition: border-color 0.28s ease, box-shadow 0.28s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* HOVER */
+.about-pillar:hover {
+  transform: translateY(-5px) scale(1.02);
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(201, 168, 76, 0.6);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.10),
+    0 0 0 1px rgba(201, 168, 76, 0.25),
+    0 0 18px 2px rgba(201, 168, 76, 0.22),
+    0 0 40px 6px rgba(201, 168, 76, 0.10);
+}
+
+.about-pillar:hover::before {
+  border-color: rgba(201, 168, 76, 0.55);
+  box-shadow: 0 0 12px 3px rgba(201, 168, 76, 0.18);
+}
+
+/* ACTIVE / CLICK */
+.about-pillar:active {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 0 14px 3px rgba(201, 168, 76, 0.35),
+    0 0 30px 8px rgba(201, 168, 76, 0.18);
+}
+
+/* ICON */
+.about-pillar-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.about-pillar:hover .about-pillar-icon {
+  transform: scale(1.28) rotate(-12deg);
+}
+
+/* TEXT */
+.about-pillar-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.25s ease;
+  margin-bottom: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.about-pillar:hover .about-pillar-name {
+  color: #a07830;
+}
+
+.about-pillar-desc {
+  font-size: 11.5px;
+  color: var(--text3);
+  line-height: 1.5;
+  position: relative;
+  z-index: 1;
+}
+
+/* DARK MODE */
+.dark .about-pillar {
+  background: rgba(20, 27, 40, 0.92);
+  border-color: rgba(201, 168, 76, 0.30);
+}
+
+.dark .about-pillar:hover {
+  background: rgba(20, 27, 40, 1);
+  border-color: rgba(201, 168, 76, 0.75);
+}

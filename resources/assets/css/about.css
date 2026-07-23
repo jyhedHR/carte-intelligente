@@ -1,0 +1,406 @@
+/* ═══════════════════════════════════════════════
+   ABOUT SECTION
+═══════════════════════════════════════════════ */
+.about-section {
+  padding: 100px 48px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg2);
+}
+
+.about-section::before {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: url('../images/arabic-calligraphy_long.jpg') center / cover no-repeat !important;
+  opacity: 0.29 !important;
+  mix-blend-mode: multiply !important;
+  transform: none !important;
+}
+
+.about-section::after {
+  bottom: auto !important;
+  right: auto !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(248, 245, 239, 0.29) !important;
+  mix-blend-mode: normal !important;
+  transform: none !important;
+  opacity: 1 !important;
+}
+
+.dark .about-section::before,
+.dark .about-section::after {
+  display: none !important;
+}
+
+/* ─── LAYOUT ─── */
+.about-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── EYEBROW ─── */
+.about-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.about-eyebrow-line {
+  width: 36px;
+  height: 1.5px;
+  background: var(--gold);
+}
+
+.about-eyebrow-text {
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-transform: none;
+  color: var(--gold);
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+/* ─── TEXT CONTENT ─── */
+.about-content h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 6px;
+  color: var(--text);
+  letter-spacing: -0.3px;
+}
+
+.about-content h2 em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+.about-subtitle-tag {
+  font-size: 13px;
+  color: rgba(201, 168, 76, 0.70);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: block;
+  font-weight: 500;
+}
+
+.about-content p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text2);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.about-content strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ─── QUOTE ─── */
+.about-quote {
+  border-left: 3px solid var(--gold);
+  padding: 14px 20px;
+  margin: 20px 0;
+  background: rgba(201, 168, 76, 0.05);
+  border-radius: 0 6px 6px 0;
+  position: relative;
+}
+
+.about-quote::before {
+  content: '"';
+  font-size: 64px;
+  position: absolute;
+  left: 10px;
+  top: -14px;
+  opacity: 0.12;
+  color: var(--gold);
+  font-family: var(--font-display);
+  line-height: 1;
+}
+
+.about-quote p {
+  font-size: 13.5px !important;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--text) !important;
+  margin: 0 !important;
+  font-weight: 400;
+}
+
+.about-divider {
+  width: 50px;
+  height: 1px;
+  background: rgba(201, 168, 76, 0.3);
+  margin: 18px 0;
+}
+
+/* ─── CTA ─── */
+.about-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 10px 20px;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  border-radius: 4px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.about-cta:hover {
+  background: rgba(201, 168, 76, 0.08);
+  border-color: var(--gold);
+  gap: 16px;
+}
+
+/* ─── VISUAL COLUMN ─── */
+.about-visual-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-visual {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  aspect-ratio: 4/3;
+}
+
+.about-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.about-visual:hover img {
+  transform: scale(1.04);
+}
+
+.about-visual::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(225deg, rgba(201,168,76,0.18) 0%, transparent 60%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.about-visual-svg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg3);
+}
+
+/* ─── STATS ─── */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.about-stat {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.about-stat:hover {
+  border-color: rgba(201, 168, 76, 0.35);
+  transform: translateY(-3px);
+}
+
+.about-stat::before {
+  display: none;
+}
+
+.about-stat-val {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--gold);
+  display: block;
+  line-height: 1;
+  margin-bottom: 4px;
+  transition: color 0.25s ease;
+}
+
+.about-stat:hover .about-stat-val {
+  color: #a07830;
+}
+
+.about-stat-lbl {
+  font-size: 10.5px;
+  color: var(--text3);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* ─── PILLARS ─── */
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.about-pillar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  transform: translateY(-8px) scale(1.04);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(201, 168, 76, 0.85);
+  box-shadow:
+    0 12px 0px rgba(160, 120, 48, 0.35),
+    0 16px 32px rgba(201, 168, 76, 0.30),
+    0 0 0 1px rgba(201, 168, 76, 0.40),
+    0 20px 60px rgba(201, 168, 76, 0.18);
+  border: 1.5px solid rgba(201, 168, 76, 0.25);
+  cursor: pointer;
+  position: relative;
+  transition:
+    transform 0.30s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.30s ease,
+    border-color 0.30s ease,
+    background 0.30s ease;
+}
+
+.about-pillar:hover {
+  transform: translateY(-8px) scale(1.04);
+  background: rgba(255, 255, 255, 1);
+  border-color: rgba(201, 168, 76, 0.85);
+  box-shadow:
+    0 12px 0px rgba(160, 120, 48, 0.35),
+    0 16px 32px rgba(201, 168, 76, 0.30),
+    0 0 0 1px rgba(201, 168, 76, 0.40),
+    0 20px 60px rgba(201, 168, 76, 0.18);
+}
+
+.about-pillar:active {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 4px 0px rgba(160, 120, 48, 0.40),
+    0 6px 16px rgba(201, 168, 76, 0.25),
+    0 0 0 1px rgba(201, 168, 76, 0.45);
+}
+
+.about-pillar-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(201, 168, 76, 0.12);
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.about-pillar:hover .about-pillar-icon {
+  transform: scale(1.25) rotate(-6deg);
+}
+
+.about-pillar-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text);
+  transition: color 0.25s ease;
+  margin-bottom: 3px;
+}
+
+.about-pillar:hover .about-pillar-name {
+  color: #a07830;
+}
+
+.about-pillar-desc {
+  font-size: 11.5px;
+  color: var(--text3);
+  line-height: 1.5;
+}
+
+.dark .about-pillar {
+  background: rgba(20, 27, 40, 0.85);
+  border-color: rgba(201, 168, 76, 0.20);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .about-visual-col {
+    order: -1;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-section { padding: 60px 24px; }
+
+  /* Stats: 3 columns is too tight on a phone */
+  .about-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .about-stat { padding: 12px 10px; }
+  .about-stat-val { font-size: 20px; }
+  .about-stat-lbl { font-size: 9px; }
+
+  /* Pillars: keep 2 columns but tighten spacing so they don't clip */
+  .about-pillars { gap: 10px; }
+  .about-pillar {
+    padding: 12px 14px;
+    transform: none; /* the permanent "lifted" hover state doesn't work well on touch */
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+  .about-pillar-icon { width: 36px; height: 36px; font-size: 20px; }
+}
+
+@media (max-width: 380px) {
+  /* Very narrow phones: stack stats to 1 column so numbers stay readable */
+  .about-stats { grid-template-columns: 1fr; }
+  .about-pillars { grid-template-columns: 1fr; }
+}

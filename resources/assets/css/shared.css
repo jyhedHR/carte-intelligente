@@ -1,0 +1,499 @@
+/* ═══════════════════════════════════════════════
+   GED — Portail Ministère des Affaires Culturelles
+   shared.css  ·  v2.0  ·  Mars 2026
+   Light + Dark Mode + Improved Accessibility
+═══════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* ── Root Variables - Light Mode (Default) ── */
+:root {
+  /* Backgrounds */
+  --bg:        #f8f9fc;
+  --bg2:       #ffffff;
+  --bg3:       #f1f3f9;
+  --card:      #ffffff;
+  --card2:     #f8f9fc;
+
+  /* Borders */
+  --border:    #e2e8f0;
+  --border2:   #cbd5e1;
+
+  /* Accents - Tunisian Cultural Identity */
+  --gold:      #c9a84c;
+  --gold2:     #d4b76a;
+  --gold3:     #a07830;
+  --gold-glow: rgba(201,168,76,0.15);
+
+  --teal:      #38b2ac;
+  --teal2:     #2c9c96;
+
+  /* Text */
+  --text:      #1e2937;
+  --text2:     #475569;
+  --text3:     #64748b;
+
+  /* Status colors */
+  --red:       #e05252;
+  --green:     #3eb87a;
+
+  /* Typography */
+  --font-body: 'IBM Plex Sans Arabic', system-ui, sans-serif;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  /* Design tokens */
+  --radius:    12px;
+  --radius-sm: 8px;
+  --shadow:    0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ── Dark Mode ── */
+.dark {
+  --bg:        #07090f;
+  --bg2:       #0c1018;
+  --bg3:       #111720;
+  --card:      #141b28;
+  --card2:     #1a2235;
+  --border:    #222d45;
+  --border2:   #2e3f60;
+
+  --gold:      #c9a84c;
+  --gold2:     #e8c97a;
+  --gold3:     #a07830;
+  --gold-glow: rgba(201,168,76,0.18);
+
+  --text:      #e4e8f2;
+  --text2:     #8a96b4;
+  --text3:     #4a5470;
+
+  --shadow:    0 24px 60px rgba(0,0,0,0.55);
+}
+
+/* ── Global Reset & Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  font-family: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 3px;
+}
+
+/* ── Background Elements (Cultural Touch) ── */
+.bg-canvas, .bg-grid, .bg-ornament {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+.bg-ornament {
+  font-size: 320px;
+  opacity: 0.04;
+  font-family: var(--font-display);
+  color: var(--gold);
+  user-select: none;
+  line-height: 1;
+  pointer-events: none;
+}
+.bg-ornament.top-right  { top: -80px; right: -60px; }
+.bg-ornament.bot-left   { bottom: -80px; left: -60px; }
+
+/* ── Top Navigation ── */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 68px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.4s ease;
+}
+
+.dark .topnav {
+  background: rgba(7,9,15,0.95);
+}
+
+/* Brand */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.nav-logo-mark {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold3) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  font-weight: 900;
+  color: #111;
+  font-family: var(--font-display);
+  box-shadow: 0 4px 16px var(--gold-glow);
+}
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nav-brand-name {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: var(--text);
+}
+
+.nav-brand-sub {
+  font-size: 10px;
+  color: var(--text3);
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  padding: 7px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text2);
+  text-decoration: none;
+  transition: all 0.2s;
+  border: 1px solid transparent;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.nav-link.active {
+  color: var(--gold2);
+  background: var(--card);
+  border-color: var(--gold3);
+}
+
+/* Language Toggle */
+.lang-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.lang-btn {
+  padding: 5px 14px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text3);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn.active {
+  background: var(--gold);
+  color: #111;
+}
+
+/* Mode Toggle */
+.mode-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.mode-toggle:hover {
+  background: var(--gold);
+  transform: scale(1.05);
+}
+/* Moon color per theme */
+.moon-icon {
+  fill: var(--gold);           /* dark mode: gold crescent */
+  transition: fill 0.3s ease;
+  display: block;
+}
+
+.dark .moon-icon {
+  fill: var(--gold);           /* dark mode stays gold */
+}
+
+/* light mode (no .dark class on root) */
+:root:not(.dark) .moon-icon {
+  fill: #1e2937;               /* light mode: dark slate so it's visible on white nav */
+}
+
+/* on hover, icon matches the gold bg */
+.mode-toggle:hover .moon-icon {
+  fill: #111;
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 24px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.22s;
+  border: 1px solid transparent;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold3) 100%);
+  color: #111;
+  border-color: var(--gold);
+  box-shadow: 0 4px 20px var(--gold-glow);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, var(--gold2) 0%, var(--gold) 100%);
+  box-shadow: 0 6px 28px rgba(201,168,76,0.35);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border2);
+}
+
+.btn-outline:hover {
+  background: var(--card);
+  border-color: var(--gold3);
+  color: var(--gold2);
+}
+
+/* ── Form Elements ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.form-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+
+.form-label .req {
+  color: var(--gold);
+  margin-left: 3px;
+}
+
+.form-input, .form-select {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+}
+
+/* ── Cards ── */
+.glass-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ── Utility ── */
+.hidden { display: none !important; }
+
+/* Smooth transitions for all elements */
+* {
+  transition: border-color 0.2s, background 0.3s, color 0.3s, box-shadow 0.2s;
+}
+
+/* ══════════════════════════════════════════
+   CALLIGRAPHY PNG BACKGROUND OVERLAYS
+══════════════════════════════════════════ */
+
+.about-section {
+  padding: 100px 48px;
+  background: var(--bg2);
+  position: relative;
+  overflow: visible;        /* ← was hidden, was clipping the images */
+}
+
+.about-section::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  left: -120px;
+  width: 780px;             /* ← was 520px */
+  height: 780px;
+  background: url('arabic-calligraphy1-Photoroom.png') center / contain no-repeat;
+  opacity: 0.09;
+  transform: rotate(-15deg);
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.about-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -120px;
+  width: 720px;             /* ← was 480px */
+  height: 720px;
+  background: url('arabic-calligraphy2-Photoroom.png') center / contain no-repeat;
+  opacity: 0.08;
+  transform: rotate(12deg);
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.sponsors-section {
+  padding: 80px 48px;
+  background: var(--bg3);
+  position: relative;
+  overflow: visible;        /* ← was hidden */
+}
+
+.sponsors-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -160px;             /* ← pushed further out */
+  transform: translateY(-50%) rotate(-10deg);
+  width: 680px;             /* ← was 420px */
+  height: 680px;
+  background: url('arabic-calligraphy3-Photoroom.png') center / contain no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.sponsors-section::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -160px;            /* ← pushed further out */
+  transform: translateY(-50%) rotate(10deg);
+  width: 700px;             /* ← was 460px */
+  height: 700px;
+  background: url('arabic-calligraphy5-Photoroom.png') center / contain no-repeat;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+.about-container,
+.about-content,
+.about-visual-col,
+.sponsors-header,
+.sponsors-wrapper,
+.sponsors-track {
+  position: relative;
+  z-index: 2;
+}
+.user-dropdown-item {
+    padding: 12px 20px;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+}
+
+.user-dropdown-item:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    color: var(--gold);
+}
+
+.logout-btn {
+    color: #e74c3c !important;
+    font-weight: 500;
+}
+
+.logout-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1) !important;
+    color: #e74c3c !important;
+}

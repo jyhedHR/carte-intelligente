@@ -1,0 +1,359 @@
+/* ══════════════════════════════════
+   DIVERSITE CULTURELLE SECTION
+   Uses global CSS variables for light/dark mode
+══════════════════════════════════ */
+
+/* ── MAIN SECTION ── */
+.diversite-section {
+  padding: 100px 0 80px;
+  position: relative;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+/* Light mode background image (default - when NO .dark class) */
+.diversite-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/resources/assets/images/arabic-calligraphy_long.jpg') center / cover no-repeat;
+  opacity: 0.18;
+  mix-blend-mode: normal;
+  pointer-events: none;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Dark mode: hide background image */
+.dark .diversite-section::before {
+  opacity: 0;
+}
+
+.diversite-inner {
+  max-width: 1350px;  /* Increased from 1200px */
+  margin: 0 auto;
+  padding: 0 24px;    /* Reduced from 48px */
+  position: relative;
+  z-index: 0s;
+}
+.diversite-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 32px;
+}
+
+.diversite-title em {
+  color: var(--gold);
+  font-style: italic;
+}
+
+/* ── TABS ── */
+.diversite-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.div-tab {
+  padding: 9px 20px;
+  border: 1.5px solid rgba(201, 168, 76, 0.5);
+  border-radius: 30px;
+  background: rgba(201, 168, 76, 0.06);
+  color: rgba(201, 168, 76, 0.85);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.div-tab:hover {
+  background: rgba(201, 168, 76, 0.15);
+  border-color: rgba(201, 168, 76, 0.9);
+  color: var(--gold);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    0 6px 0px rgba(160, 120, 48, 0.3),
+    0 8px 20px rgba(201, 168, 76, 0.25),
+    0 0 0 1px rgba(201, 168, 76, 0.3);
+}
+
+.div-tab.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: #111;
+  font-weight: 700;
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 0px rgba(160, 120, 48, 0.4),
+    0 8px 20px rgba(201, 168, 76, 0.35),
+    0 0 15px rgba(201, 168, 76, 0.3);
+}
+/* ── SLIDER STRUCTURE ── */
+.diversite-slider-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.diversite-viewport {
+  overflow: visible;  /* Changed from hidden to visible */
+  flex: 1;
+}
+
+.diversite-track {
+  position: relative;
+}
+
+.div-slide-group {
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding-top: 16px;  /* Add space for hover effect */
+}
+/* Active sector */
+.div-slide-group.active {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 24px;
+  padding-top: 16px;  /* Add space for hover effect */
+}
+
+/* ── CARDS ── */
+.div-card {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+  position: relative;
+  aspect-ratio: 4 / 3;
+}
+.div-card:hover {
+  transform: translateY(-14px) scale(1.03);
+  border-color: rgba(201, 168, 76, 0.9);
+  box-shadow:
+    /* 3D lift shadow */
+    0 4px 0 0 rgba(180, 140, 50, 0.8),
+    0 8px 0 0 rgba(160, 120, 40, 0.5),
+    0 12px 0 0 rgba(140, 100, 30, 0.3),
+    /* Gold glow */
+    0 0 20px rgba(201, 168, 76, 0.4),
+    0 0 40px rgba(201, 168, 76, 0.2),
+    /* Outer ring */
+    0 0 0 3px rgba(201, 168, 76, 0.5),
+    /* Soft spread */
+    0 20px 50px rgba(201, 168, 76, 0.3);
+}
+
+/* Dark mode card hover shadow */
+/* Dark mode card hover shadow */
+.dark .div-card:hover {
+  border-color: rgba(201, 168, 76, 1);
+  box-shadow:
+    /* 3D lift shadow */
+    0 4px 0 0 rgba(201, 168, 76, 0.7),
+    0 8px 0 0 rgba(180, 140, 50, 0.5),
+    0 12px 0 0 rgba(160, 120, 40, 0.3),
+    /* Gold glow */
+    0 0 25px rgba(201, 168, 76, 0.5),
+    0 0 50px rgba(201, 168, 76, 0.25),
+    /* Outer ring */
+    0 0 0 3px rgba(201, 168, 76, 0.6),
+    /* Soft spread */
+    0 20px 60px rgba(201, 168, 76, 0.35);
+}
+
+/* Image fills 100% of the card */
+.div-card-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Gradient overlay - dark at bottom for text */
+.div-card-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  z-index: 1;
+}
+
+
+
+.div-card-cat {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  padding: 4px 12px;
+  background: rgba(201, 168, 76, 0.9);
+  color: #111;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+.div-card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 16px;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.light .div-card-body {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Text styles */
+.div-card-date {
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.div-card-body h4 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  transition: color 0.25s;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+.light .div-card-body h4 {
+  color: #111;
+  text-shadow: none;
+}
+.div-card:hover h4 {
+  color: var(--gold);
+}
+
+.div-card-body p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.light .div-card-body p {
+  color: #333;
+}
+
+
+/* ── ARROWS ── */
+.div-arrow {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  background: rgba(201, 168, 76, 0.08);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  color: var(--gold);
+  border-radius: 50%;
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  line-height: 1;
+}
+
+.dark .div-arrow {
+  background: rgba(201, 168, 76, 0.12);
+  border-color: rgba(201, 168, 76, 0.4);
+}
+
+.div-arrow:hover {
+  background: var(--gold);
+  color: #111;
+  border-color: var(--gold);
+}
+
+.div-arrow:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ── DOTS ── */
+.diversite-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+}
+
+.div-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.div-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+/* Active sector */
+.div-slide-group.active {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 24px;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .div-slide-group,
+  .div-slide-group.active {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .div-slide-group,
+  .div-slide-group.active {
+    grid-template-columns: 1fr;
+  }
+  .diversite-tabs {
+    gap: 8px;
+  }
+  .div-tab {
+    font-size: 12px;
+    padding: 7px 14px;
+  }
+}

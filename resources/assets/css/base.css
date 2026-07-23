@@ -1,0 +1,16 @@
+/* ═══════════════════════════════════════════════
+   BASE LAYOUT
+═══════════════════════════════════════════════ */
+body {
+  background: #0a0806;
+  color: #e4e8f2;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page-container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding-top: 78px;
+}

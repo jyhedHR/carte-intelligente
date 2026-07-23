@@ -1,0 +1,151 @@
+/* ═══════════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero-map {
+    flex-direction: column;
+    height: auto;
+    min-height: auto;
+  }
+
+  .hero-content {
+    flex: none;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 48px;
+  }
+
+  /* Was: position:absolute; right:0; top:50%; width:55% — that overlaid the
+     map on top of hero-content once .hero-map switched to a column layout.
+     Now it's a normal block that stacks under the text, full width. */
+  .map-wrapper {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 100%;
+    height: 600px;
+    margin-top: 32px;
+    background: rgba(10, 8, 6, 0.8);
+    border: 2px solid rgba(201, 168, 76, 0.2);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(201,168,76,0.1), 0 0 80px rgba(56,178,172,0.05);
+    z-index: 1;
+    animation: slideInRight 1s ease-out;
+  }
+
+  #tunisia-map {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* .locations-panel stays absolute — that's fine, it's meant to float
+     inside .map-wrapper (now relative), not the page. */
+  .locations-panel {
+    width: 280px;
+  }
+
+  /* This bar had a hardcoded top:-70px for desktop overlap with the map.
+     On a stacked mobile layout that just yanks it up into whatever sits
+     above it, causing the cramped look. Reset it. */
+  .map-legend-bar,
+  .map-legend-bar-seperate {
+    top: 0;
+    flex-wrap: wrap;
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-map {
+    padding: 40px 24px;
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .map-wrapper {
+    height: 400px;
+    margin-top: 24px;
+  }
+
+  .locations-panel {
+    width: 220px;
+    right: 10px;
+    top: 10px;
+    max-height: 260px;
+  }
+
+  .map-legend-bar,
+  .map-legend-bar-seperate {
+    gap: 16px;
+    padding: 14px 16px;
+  }
+
+  .legend-bar-title {
+    padding-right: 16px;
+    font-size: 11px;
+  }
+
+  .legend-bar-items {
+    gap: 14px;
+  }
+
+  .services-section {
+    padding: 60px 24px;
+  }
+
+  .section-header h2 {
+    font-size: 36px;
+  }
+
+  .service-card {
+    padding: 24px;
+  }
+
+  .sponsors-inner {
+    padding: 0 24px;
+  }
+
+  .sponsors-header {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Locations panel is 280/220px wide floating over a map that's now the
+     full (small) screen width — shrink it further so it doesn't eat most
+     of the map on very narrow phones. */
+  .map-wrapper {
+    height: 340px;
+  }
+
+  .locations-panel {
+    width: 170px;
+    max-height: 200px;
+    font-size: 12px;
+  }
+
+  .map-legend-bar,
+  .map-legend-bar-seperate {
+    justify-content: flex-start;
+    gap: 10px 14px;
+  }
+
+  .legend-bar-title {
+    border-right: none;
+    padding-right: 0;
+    width: 100%;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.25);
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+}
