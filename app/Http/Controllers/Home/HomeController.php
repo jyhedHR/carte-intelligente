@@ -8,14 +8,6 @@ use App\Models\MapLocation;
 
 class HomeController extends Controller
 {
-    /**
-     * Renders the home page (used by both '/' and '/dashboard').
-     *
-     * If you already have other data the home view needs (stats, news,
-     * announcements, etc.), add it to the array passed to view() below —
-     * just don't remove 'mapLocations' / 'mapCategories', the map section
-     * of home.blade.php depends on them.
-     */
     public function index()
     {
         $categories = MapCategory::orderBy('order')->orderBy('name')->get();
